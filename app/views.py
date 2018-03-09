@@ -7,3 +7,8 @@ myapp = Blueprint("app", __name__)
 def index():
 
     return render_template("index.html")
+
+
+@myapp.route("/info")
+def info():
+    return render_template("info.html")
