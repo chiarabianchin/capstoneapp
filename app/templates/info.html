@@ -1,6 +1,29 @@
 {% extends "layout.html" %}
-{% block title %}Model used: convolutional neural network{% endblock %}
+<title>
+{% block title %}Model used: convolutional neural network {{ super() }}{% endblock %}
+</title>
 {% block content %}
+{{ super() }}
 
-<p>Figures</p>
+<div id=model class="container-fluid bg-grey">
+    <div class="col-sm-8">
+    <p>
+    We used a Convolutional Neural Network CNN with XXX layers.
+
+    The model is trained with about 6k images of different types of food, namely ...
+    (this limits what the model can identify in the picture you upload).
+
+    </p>
+    </div>
+    <div class="col-sm-4">
+        <div class="thumbnail">
+            <img src="static/model_3cl_do20_tr6400_5_v1343_5_steps_per_epoch_100_epochs_20_validation_steps_10.png
+" alt="Model">
+            <p><strong>Schema of the CNN</strong></p>
+        </div>
+    </div>
+
+
+</div>
+
 {% endblock content %}

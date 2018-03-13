@@ -1,6 +1,62 @@
 {% extends "layout.html" %}
-{% block title %}Welcome!{% endblock %}
+{% block title %}Che cosa c'e' a cena?{% endblock %}
 {% block content %}
-Upload image of your fridge
-<p>Click here to get recommendation </p>
+
+
+<div id="about" class="container-fluid">
+<div class="row">
+<div class="col-sm-8">
+<nav>
+<h4>Load image </h4>
+<a href=" {{ url_for('app.upload') }}"> <button class="btn btn-default btn-lg">Go!</button></a>
+</nav>
+</div>
+<div class="col-sm-4">
+<div class="thumbnail">
+        <img src="static/fridge.jpeg" alt="Fridge">
+        <p><strong>Nothing here for the moment</strong></p>
+        <p>Should I add anything?</p>
+      </div>
+<!--  <span class="glyphicon glyphicon-signal logo"></span>-->
+</div>
+</div>
+
+</header>
+</div>
+
+<!--Capstone Project -->
+<div id=project class="container-fluid bg-grey">
+  <h2>Capstone project Data Incubator 2018</h2>
+  <h4><strong>Image object identification:</strong> <a href=" {{ url_for('app.info') }}">Find food in
+  images with a convolutional neural networn (CNN)</a></h4>
+  <p><strong>Recommendation</strong> Find a recipe </p>
+</div>
+
+<div id="contact" class="container-fluid bg-grey">
+  <h2 class="text-center">CONTACT</h2>
+  <p><span class="glyphicon glyphicon-map-marker"></span> Bruxelles, Belgium</p>
+  <p><span class="glyphicon glyphicon-envelope"></span> chiara.bianchin11 at gmail.com</p>
+</div>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#project">PROJECT</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</body>
+
 {% endblock content %}
