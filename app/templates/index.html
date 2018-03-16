@@ -8,6 +8,16 @@
 <div class="col-sm-8">
 <nav>
 <h4>Load image </h4>
+
+<div id=project class="container-fluid bg-grey">
+<form action="{{url_for('app.upload')}}" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    {{form.photo}}
+    <button class="btn btn-default btn-lg">{{form.submit}}</button>
+</form>
+
+</div>
+
 <a href=" {{ url_for('app.upload') }}"> <button class="btn btn-default btn-lg">Go!</button></a>
 </nav>
 </div>
@@ -35,28 +45,10 @@
 <div id="contact" class="container-fluid bg-grey">
   <h2 class="text-center">CONTACT</h2>
   <p><span class="glyphicon glyphicon-map-marker"></span> Bruxelles, Belgium</p>
-  <p><span class="glyphicon glyphicon-envelope"></span> chiara.bianchin11 at gmail.com</p>
+  <p><a href=mailto:chiara.bianchin11@gmail.com <span class="glyphicon glyphicon-envelope"></span> chiara.bianchin11 at gmail.com </a></p>
+  <p><span class="glyphicon glyphicon-envelope"></span> </p>
 </div>
 
-<body>
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about">ABOUT</a></li>
-        <li><a href="#project">PROJECT</a></li>
-        <li><a href="#contact">CONTACT</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-</body>
+
 
 {% endblock content %}

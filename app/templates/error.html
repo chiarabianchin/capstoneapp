@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block title %} Error {% endblock %}
+{% block content %}
+{% for message in form.name.errors %}
+   {{ message }}
+{% endfor %}
+{% endblock content %}
