@@ -1,11 +1,23 @@
 #general
 import os
+import sys
+import numpy as np
+import io
 
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 
 #forms
 from .forms import PhotoForm
 from werkzeug.utils import secure_filename
+
+#modelling
+from .model import runprediction
+
+# images
+from PIL import Image
+
+#keras
+from keras.preprocessing import image
 
 
 myapp = Blueprint("app", __name__)
@@ -14,6 +26,8 @@ myapp = Blueprint("app", __name__)
 @myapp.route("/")
 def index():
     form = PhotoForm()
+    if form.validate_on_submit():
+        print("array", np.array(form.photo))
     return render_template("index.html", form=form)
 
 
@@ -24,19 +38,42 @@ def info():
 
 @myapp.route('/upload', methods=['POST'])
 def upload():
-    flash(request.form)
-    #if form.validate_on_submit():
-        #f = form.photo.data
-        #print(f)
-        #if f:
-            #flash("something loaded")
-        #if form.submit:
-            #flash("submitted")
-            #return render_template("upload.html", form=form)
-        #else:
-            #return redirect(url_for('error'))
+    #print ("test")
+    #fl =
+    #print(fl)
 
-    return render_template('upload.html', form=request.form)
+    #filename = secure_filename(fl)
+    print("myform")
+    #print(filename)
+    form = PhotoForm()
+    f = form.photo.data
+    # save to file
+    filename = secure_filename(f.filename)
+    file_name = os.path.join('app','static', 'images', filename)
+    print("Saving file to ", file_name)
+    f.save(file_name)
+    print("Done")
+    #rf = request.files['photo']
+    #print("what is rf?", rf)
+    #f_in_memory = io.BytesIO()
+    #rf.save(f_in_memory)
+    #print("value", f_in_memory.getvalue())
+
+    #data = np.fromstring(f_in_memory.getvalue(), dtype=np.uint8)
+    #print("f = ",f)
+    #for fp in [[f]]:
+        #for test in fp:
+            #img1 = np.array(image.load_img(test, target_size=(150, 150)))
+            #print("Img ", img1)
+    model_file = os.path.join('app', 'static', \
+    'model_Y5pat_tr3110_4noneg_v1132_4noneg_steps_per_epoch_100_epochs_20_validation_steps_10.h5')
+    # note: one list for the base folder name, another list for the subdirectories
+    # this is due to the structure e.g. training/tomato
+    output_class = runprediction([[f]], model_file)
+    print(type(output_class))
+    print(type(output_class[0]), type(output_class[1]))
+    return render_template('upload.html', filename=filename, output=output_class)
+    #return render_template('index.html', form=form)
 
 
 @myapp.route("/run")
