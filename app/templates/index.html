@@ -12,7 +12,7 @@
 <div id=project class="container-fluid bg-grey">
 <div class="col-sm-8">
 <form action="{{url_for('app.index')}}" method="post" enctype="multipart/form-data">
-    <strong>Upload an picture of your ingredients:</strong>
+    <strong>Upload a picture of your ingredients:</strong>
     {{form.photo}}{{form.submit}}
 
 <!--<form action="{{url_for('app.upload', picture=filename)}}" method="post" enctype="multipart/form-data">
@@ -23,12 +23,10 @@
 <div class="col-sm-4">
 {% if filenames %}
 <form action="{{url_for('app.index')}}" method="get" enctype="multipart/form-data">
-{% for f in filenames %}
+
     <div class="thumbnail">
-        <img src="static/images/{{f}}" alt="ImageForm" style="float:above;width:128px;height:128px;">
+        <img src="static/images/{{filenames}}" alt="ImageForm" style="float:above;width:128px;height:128px;">
     </div>
-{% endfor %}
-<a href=" {{ url_for('app.index', filenames=filenames) }}"> ADD</a>
 
     <br>
     Now press predict to check the list of ingredients and decide what to cook!

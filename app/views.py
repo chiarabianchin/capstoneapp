@@ -26,17 +26,7 @@ myapp = Blueprint("app", __name__)
 @myapp.route("/", methods=['GET','POST'])
 def index():
     form = PhotoForm()
-    ingredients = []
-    try:
-        print("Request ", request.args.get('filenames'))
-        ingredients = request.args.get('filenames')
-    except:
-        print("Ingredients not yet created")
-        ingredients = []
-        pass
-    if ingredients is None:
-        ingredients = []
-    print("ingredients", ingredients)
+
     if request.method == 'POST':
         print("I'm validate on submit")
         form = PhotoForm()
@@ -48,12 +38,11 @@ def index():
         f.save(file_name)
         print("Done")
         print("array", np.array(form.photo))
-        ingredients.append(filename)
-        print("Now ingredients", ingredients)
-        return render_template("index.html", form=form, filenames=ingredients)
+
+        return render_template("index.html", form=form, filenames=filename)
     else:
         print("Returning the form", form)
-        return render_template("index.html", form=form, filenames=ingredients)
+        return render_template("index.html", form=form, filenames=None)
 
 
 
