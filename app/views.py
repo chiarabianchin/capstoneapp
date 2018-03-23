@@ -23,12 +23,38 @@ from keras.preprocessing import image
 myapp = Blueprint("app", __name__)
 
 
-@myapp.route("/")
+@myapp.route("/", methods=['GET','POST'])
 def index():
     form = PhotoForm()
-    if form.validate_on_submit():
+    ingredients = []
+    try:
+        print("Request ", request.args.get('filenames'))
+        ingredients = request.args.get('filenames')
+    except:
+        print("Ingredients not yet created")
+        ingredients = []
+        pass
+    if ingredients is None:
+        ingredients = []
+    print("ingredients", ingredients)
+    if request.method == 'POST':
+        print("I'm validate on submit")
+        form = PhotoForm()
+        f = form.photo.data
+        # save to file
+        filename = secure_filename(f.filename)
+        file_name = os.path.join('app','static', 'images', filename)
+        print("Saving file to ", file_name)
+        f.save(file_name)
+        print("Done")
         print("array", np.array(form.photo))
-    return render_template("index.html", form=form)
+        ingredients.append(filename)
+        print("Now ingredients", ingredients)
+        return render_template("index.html", form=form, filenames=ingredients)
+    else:
+        print("Returning the form", form)
+        return render_template("index.html", form=form, filenames=ingredients)
+
 
 
 @myapp.route("/info")
@@ -36,31 +62,13 @@ def info():
     return render_template("info.html")
 
 
-@myapp.route('/upload', methods=['POST'])
+@myapp.route('/upload')
 def upload():
-    #print ("test")
-    #fl =
-    #print(fl)
+    print ("test")
+    fl = request.args.get('picture')
+    print(fl)
+    f = os.path.join('app', 'static', 'images', fl)
 
-    #filename = secure_filename(fl)
-    print("myform")
-    #print(filename)
-    form = PhotoForm()
-    f = form.photo.data
-    # save to file
-    filename = secure_filename(f.filename)
-    file_name = os.path.join('app','static', 'images', filename)
-    print("Saving file to ", file_name)
-    f.save(file_name)
-    print("Done")
-    #rf = request.files['photo']
-    #print("what is rf?", rf)
-    #f_in_memory = io.BytesIO()
-    #rf.save(f_in_memory)
-    #print("value", f_in_memory.getvalue())
-
-    #data = np.fromstring(f_in_memory.getvalue(), dtype=np.uint8)
-    #print("f = ",f)
     #for fp in [[f]]:
         #for test in fp:
             #img1 = np.array(image.load_img(test, target_size=(150, 150)))
@@ -72,7 +80,8 @@ def upload():
     output_class = runprediction([[f]], model_file)
     print(type(output_class))
     print(type(output_class[0]), type(output_class[1]))
-    return render_template('upload.html', filename=filename, output=output_class)
+    print("REturning ", fl)
+    return render_template('upload.html', filename=fl, output=output_class)
     #return render_template('index.html', form=form)
 
 

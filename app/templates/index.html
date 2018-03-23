@@ -7,30 +7,54 @@
 <div class="row">
 <div class="col-sm-8">
 <nav>
-<h4>Load image </h4>
+<h1>Cooking with these ingredients </h1>
 
 <div id=project class="container-fluid bg-grey">
-<form action="{{url_for('app.upload')}}" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    {{form.photo}}
-    <button class="btn btn-default btn-lg">{{form.submit}}</button>
-    <br>
-    <strong>Use this</strong>
-    <p><input type=file name=file>
-       <input type=submit value=Upload>
-</form>
+<div class="col-sm-8">
+<form action="{{url_for('app.index')}}" method="post" enctype="multipart/form-data">
+    <strong>Upload an picture of your ingredients:</strong>
+    {{form.photo}}{{form.submit}}
 
+<!--<form action="{{url_for('app.upload', picture=filename)}}" method="post" enctype="multipart/form-data">
+-->
+</form>
 </div>
 
-<a href=" {{ url_for('app.upload') }}"> <button class="btn btn-default btn-lg">Go!</button></a>
+<div class="col-sm-4">
+{% if filenames %}
+<form action="{{url_for('app.index')}}" method="get" enctype="multipart/form-data">
+{% for f in filenames %}
+    <div class="thumbnail">
+        <img src="static/images/{{f}}" alt="ImageForm" style="float:above;width:128px;height:128px;">
+    </div>
+{% endfor %}
+<a href=" {{ url_for('app.index', filenames=filenames) }}"> ADD</a>
+
+    <br>
+    Now press predict to check the list of ingredients and decide what to cook!
+    <button class="btn btn-default btn-lg">PREDICT</button>
+    <a href=" {{ url_for('app.upload', picture=filenames) }}"> PREDICT</a>
+<!--<a href=" {{ url_for('app.upload', picture=filename) }}"> </a>-->
+</div>
+</form>
+{% endif %}
+</div>
+
 </nav>
 </div>
 <div class="col-sm-4">
+<h2>Examples of ingredients</h2>
 <div class="thumbnail">
-        <img src="static/fridge.jpeg" alt="Fridge">
-        <p><strong>Nothing here for the moment</strong></p>
-        <p>Should I add anything?</p>
-      </div>
+    <img src="static/images/samples/tomato.jpg" alt="Tomato" style="width:128px;">
+</div>
+<div class="thumbnail">
+    <img src="static/images/samples/egg.jpg" alt="Egg" style="width:128px;">
+</div>
+
+<div class="thumbnail">
+    <img src="static/images/samples/zucchini.jpg" alt="Zucchini" style="width:128px;">
+</div>
+
 <!--  <span class="glyphicon glyphicon-signal logo"></span>-->
 </div>
 </div>

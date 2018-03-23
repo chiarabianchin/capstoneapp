@@ -1,22 +1,24 @@
 {% extends "layout.html" %}
 {% block title %}Che cosa c'e' a cena?{% endblock %}
 {% block content %}
-<!--<div class="thumbnail">
-        <img src="{{fileimg}}" alt="ImageUploaded">
-        <p><strong>You image</strong></p>
-      </div>
-</div>
--->
-
 
 <div id=project class="container-fluid bg-grey">
+    <div class="col-sm-4">
     <div class="thumbnail">
-        <img src="static/images/{{filename}}" alt="ImageForm" style="float:left;width:128px;height:128px;">
+        <img src="static/images/{{filename}}" alt="ImageForm" style="float:left;height:128px;">
     </div>
-
-  <h2>Prediction:</h2>
-  <br>
-  {{output[0]}} or {{output[1]}}
+    </div>
+    <div class="col-sm-6">
+      <h2>Prediction:</h2>
+      <br>
+      <h3><ul>
+      {% for out in output[0] %}
+      <li>
+      <b>{{out}}</b>
+      </li>
+      {% endfor %}
+      </ul></h3>
+    </div>
 </div>
 
 {% endblock %}
