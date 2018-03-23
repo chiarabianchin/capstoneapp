@@ -3,6 +3,7 @@ import os
 import sys
 import numpy as np
 import io
+import json
 
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 
@@ -48,7 +49,11 @@ def index():
 
 @myapp.route("/info")
 def info():
-    return render_template("info.html")
+    with open(os.path.join('app', 'static',\
+    'model_Y5pat_tr3110_4noneg_v1132_4noneg_steps_per_epoch_100_epochs_20_validation_steps_10.json'),\
+    'r') as f:
+        json_data = json.loads(f.read())
+    return render_template("info.html", food=json_data)
 
 
 @myapp.route('/upload')

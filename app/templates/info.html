@@ -8,13 +8,19 @@
 <div id=model class="container-fluid bg-grey">
     <div class="col-sm-8">
     <p>
-    We used a Convolutional Neural Network CNN with XXX layers.
+    We used a Convolutional Neural Network CNN with 3 layers.
 
-    The model is trained with about 6k images of different types of food, namely ...
+    The model is trained with about 6k images of different types of food, namely
+    {% for key, value in food.items()%} {{key|e}},{%endfor%}
     (this limits what the model can identify in the picture you upload).
 
     </p>
     </div>
+
+    <div class="thumbnail">
+        <img src="static/confusion_matrixPlaceholder.jpg" alt="ConfusionMatrix" size="float:right;width:150px;">
+        <p>This is a placeholder</p>
+
     <div class="col-sm-4">
         <div class="thumbnail">
             <img src="static/model_3cl_do20_tr6400_5_v1343_5_steps_per_epoch_100_epochs_20_validation_steps_10.png
