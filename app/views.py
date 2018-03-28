@@ -34,7 +34,7 @@ def index():
         f = form.photo.data
         # save to file
         filename = secure_filename(f.filename)
-        file_name = os.path.join('app','static', 'images', filename)
+        file_name = os.path.join('app', 'static', 'images', filename)
         print("Saving file to ", file_name)
         f.save(file_name)
         print("Done")
@@ -56,26 +56,38 @@ def info():
     return render_template("info.html", food=json_data)
 
 
-@myapp.route('/upload')
+@myapp.route('/upload', methods=['POST', 'GET'])
 def upload():
-    print ("test")
+    # retrieve the picture to be identified
     fl = request.args.get('picture')
-    print(fl)
     f = os.path.join('app', 'static', 'images', fl)
-
+    ml = None
+    ml = request.args.get('mealtype')
     #for fp in [[f]]:
         #for test in fp:
             #img1 = np.array(image.load_img(test, target_size=(150, 150)))
             #print("Img ", img1)
+    # read the model and make the prediction
     model_file = os.path.join('app', 'static', \
     'model_Y5pat_tr3110_4noneg_v1132_4noneg_steps_per_epoch_100_epochs_20_validation_steps_10.h5')
     # note: one list for the base folder name, another list for the subdirectories
     # this is due to the structure e.g. training/tomato
-    output_class = runprediction([[f]], model_file)
+    output_class, negative, prob = runprediction([[f]], model_file)
+    print("Negative in view", negative)
+    if negative[0] == - 1:
+        print("I couldn't recongnize")
+        flash("I couldn't recongnize the ingredient or your ingredient is not in the known list")
+        return render_template("result.html", filename=fl, probs=prob,
+                               classes=output_class)
     print(type(output_class))
-    print(type(output_class[0]), type(output_class[1]))
     print("REturning ", fl)
-    return render_template('upload.html', filename=fl, output=output_class)
+
+    # read the mapper of the ingredients for giallo zafferano
+    with open(os.path.join('app','static','ingredient_map.json'), 'r') as mapingjs:
+        json_ingredients = json.loads(mapingjs.read())
+
+    return render_template('upload.html', filename=fl, output=output_class,
+                           maping=json_ingredients, mltype=ml)
     #return render_template('index.html', form=form)
 
 

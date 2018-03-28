@@ -3,78 +3,89 @@
 {% block content %}
 
 
-<div id="about" class="container-fluid">
-<div class="row">
-<div class="col-sm-8">
-<nav>
-<h1>Cooking with these ingredients </h1>
+<div id="about" class="container-fluid bg-grey">
 
-<div id=project class="container-fluid bg-grey">
-<div class="col-sm-8">
-<form action="{{url_for('app.index')}}" method="post" enctype="multipart/form-data">
-    <strong>Upload a picture of your ingredients:</strong>
-    {{form.photo}}{{form.submit}}
+    <div class="row">
 
-<!--<form action="{{url_for('app.upload', picture=filename)}}" method="post" enctype="multipart/form-data">
--->
-</form>
-</div>
+        <div class="col-sm-8">
 
-<div class="col-sm-4">
-{% if filenames %}
-<form action="{{url_for('app.index')}}" method="get" enctype="multipart/form-data">
+            <h1>Cooking with these ingredients </h1>
 
-    <div class="thumbnail">
-        <img src="static/images/{{filenames}}" alt="ImageForm" style="float:above;width:128px;height:128px;">
+
+            <div class="col-sm-6">
+                <form action="{{url_for('app.index')}}" method="post" enctype="multipart/form-data">
+                    <h3><strong>Upload a picture of your ingredients:</strong></h3>
+                    <h4>
+                    {{form.photo}}{{form.submit}}
+                    </h4>
+                <!--<form action="{{url_for('app.upload', picture=filename)}}" method="post" enctype="multipart/form-data">
+                -->
+                </form>
+            </div>
+            <div class="col-sm-6">
+                {% if filenames %}
+
+                <form action="{{url_for('app.index')}}#about" method="get" enctype="multipart/form-data">
+                    <div class="thumbnail">
+                        <img src="static/images/{{filenames}}" alt="ImageForm" style="float:above;">
+                    </div>
+                </form>
+                {% endif %}
+           </div>
+
+           <div class="col-sm-4 text-center">
+
+                {% if filenames %}
+                    <a href=" {{ url_for('app.upload', picture=filenames) }}" class="btn btn-default  btn-lg"> PREDICT</a>
+                {% endif %}
+           </div>
+
+        </div>
     </div>
-
-    <br>
-    Now press predict to check the list of ingredients and decide what to cook!
-    <button class="btn btn-default btn-lg">PREDICT</button>
-    <a href=" {{ url_for('app.upload', picture=filenames) }}"> PREDICT</a>
-<!--<a href=" {{ url_for('app.upload', picture=filename) }}"> </a>-->
-</div>
-</form>
-{% endif %}
-</div>
-
-</nav>
-</div>
-<div class="col-sm-4">
-<h2>Examples of ingredients</h2>
-<div class="thumbnail">
-    <img src="static/images/samples/tomato.jpg" alt="Tomato" style="width:128px;">
-</div>
-<div class="thumbnail">
-    <img src="static/images/samples/egg.jpg" alt="Egg" style="width:128px;">
-</div>
-
-<div class="thumbnail">
-    <img src="static/images/samples/zucchini.jpg" alt="Zucchini" style="width:128px;">
-</div>
-
-<!--  <span class="glyphicon glyphicon-signal logo"></span>-->
-</div>
+    <div class="row">
+        <h2>Known ingredients</h2>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="static/images/samples/tomato.jpg" alt="Tomato" style="width:128px;">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="static/images/samples/egg.jpg" alt="Egg" style="width:128px;">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="static/images/samples/zucchini.jpg" alt="Zucchini" style="width:128px;">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="thumbnail">
+                <img src="static/images/samples/potato.jpg" alt="Potato" style="width:128px;">
+            </div>
+        </div>
+    </div>
 </div>
 
-</header>
-</div>
 
 <!--Capstone Project -->
-<div id=project class="container-fluid bg-grey">
-  <h2>Capstone project Data Incubator 2018</h2>
-  <h4><strong>Image object identification:</strong> <a href=" {{ url_for('app.info') }}">Find food in
-  images with a convolutional neural networn (CNN)</a></h4>
-  <p><strong>Recommendation</strong> Find a recipe </p>
+<div class="row">
+<div id="content" class="container-fluid text-center">
+  <h2>CAPSTONE PROJECT DATA INCUBATOR 2018</h2>
+  <h3>Food identification in images with a Convolutional Neural Network (CNN) <a href=" {{ url_for('app.info') }}"> Page</a></h3>
+
+</div>
 </div>
 
-<div id="contact" class="container-fluid bg-grey">
+<div class="row">
+<div id="contact" class="container-fluid  bg-grey">
   <h2 class="text-center">CONTACT</h2>
+  <h3>Chiara Bianchin</h3>
   <p><span class="glyphicon glyphicon-map-marker"></span> Bruxelles, Belgium</p>
-  <p><a href=mailto:chiara.bianchin11@gmail.com <span class="glyphicon glyphicon-envelope"></span> chiara.bianchin11 at gmail.com </a></p>
-  <p><span class="glyphicon glyphicon-envelope"></span> </p>
-</div>
+  <p><a href=mailto:chiara.bianchin11@gmail.com <span class="glyphicon glyphicon-envelope"></span>  </a> E-mail me</p>
 
+</div>
+</div>
 
 
 {% endblock content %}

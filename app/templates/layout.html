@@ -4,6 +4,15 @@
 <title>{% block title %}{{ title }}{% endblock %}
 
 </title>
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+     <ul class="flashes">
+        {% for message in messages %}
+         <div class="message_flash">{{ message }}</div>
+        {% endfor %}
+    </ul>
+ {% endif %}
+{% endwith %}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,7 +25,7 @@
 </head>
 
 <body>
-<div id=myPage class="jumbotron text-center">
+<div id=myPage class="jumbotron text-center" data-target=".navbar">
 <header>
 <h1>{{ self.title() }}</h1>
 </header>
@@ -44,15 +53,40 @@
     }
 }
 
+.navbar {
+    margin-bottom: 0;
+    background-color: #f4511e;
+    z-index: 9999;
+    border: 0;
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 2px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #f4511e !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #f4511e !important;
+}
 
 .bg-grey {
     background-color: #f6f6f6;
 }
 
 .thumbnail {
-    padding: 0 0 15px 0;
+    padding: 10px 0 0 0;
     border: none;
     border-radius: 0;
+    background-color: #f6f6f6;
 }
 
 .thumbnail img {
@@ -61,8 +95,11 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 10px;
+    margin-bottom: auto;
+    margin-top: 0px;
+
 }
+
 
 footer .glyphicon {
     font-size: 20px;
@@ -70,28 +107,78 @@ footer .glyphicon {
     color: #f4511e;
 }
 
+
+<!-- form choice of the mealtype-->
+input[type=text], select, textarea {
+    width: 50%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f4511e;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+
 </style>
+
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-fixed-top">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <div class="collapse navbar-collapse" id="leftNavBar">
-    <ul class="nav navbar-nav navbar-left">
-        <li><a href="{{ url_for('app.index') }}">HOME</a></li>
-    </ul>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ url_for('app.index') }}#about">ABOUT</a></li>
-        <li><a href="{{ url_for('app.index') }}#project">PROJECT</a></li>
-        <li><a href="{{ url_for('app.index') }}#contact">CONTACT</a></li>
-      </ul>
-    </div>
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+      </div>
+      <div class="navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a href="{{ url_for('app.index') }}">HOME</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('app.index') }}#about">ABOUT</a></li>
+            <li><a href="{{ url_for('app.index') }}#content">PROJECT</a></li>
+            <li><a href="{{ url_for('app.index') }}#contact">CONTACT</a></li>
+        </ul>
+
+     </div>
   </div>
 </nav>
 </body>
@@ -106,7 +193,7 @@ footer .glyphicon {
     <span class="glyphicon glyphicon-chevron-up"></span>
   </a>
   <p>Bootstrap Theme Made By <a href="https://www.w3schools.com" title="Visit w3schools">www.w3schools.com</a></p>
-  <p>Capstone Project Data Incubator 2018 Reply Milano</p>
+  <p>Chiara Bianchin - Capstone Project Data Incubator 2018 Reply Milano</p>
 </footer>
 </body>
 </html>

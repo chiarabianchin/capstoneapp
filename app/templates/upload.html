@@ -2,23 +2,61 @@
 {% block title %}Che cosa c'e' a cena?{% endblock %}
 {% block content %}
 
-<div id=project class="container-fluid bg-grey">
+<div id=prediction class="container-fluid bg-grey">
+    <div class="col-sm-3">
+        <div class="thumbnail">
+            <img src="static/images/{{filename}}" alt="ImageForm" style="float:center;">
+        </div>
+        <br>
+
+    </div>
     <div class="col-sm-4">
-    <div class="thumbnail">
-        <img src="static/images/{{filename}}" alt="ImageForm" style="float:left;height:128px;">
+        <div id=res class="container-fluid bg-grey vertical-align-center">
+            <h2>
+
+            {% for out in output %}
+              This looks like
+              <div class="thumbnail">
+                <img src="static/images/samples/{{out}}.jpg" alt="PredFood" style="width:128px;">
+                {{maping["single_ingredients_en"][out]}}
+              </div>
+            {% endfor %}
+
+            Here are <a target="_blank" href="http://www.giallozafferano.it/ricerca-ricette/{{maping["single_ingredients"][output[0]]}}"> {{maping["single_ingredients_en"][output[0]]}}</a> receipes
+
+            </h2>
+        </div>
+
     </div>
-    </div>
-    <div class="col-sm-6">
-      <h2>Prediction:</h2>
-      <br>
-      <h3><ul>
-      {% for out in output[0] %}
-      <li>
-      <b>{{out}}</b>
-      </li>
-      {% endfor %}
-      </ul></h3>
+    <div class="col-sm-4">
+    <h2>
+    <label for="mealtype">Choose the course type</label>
+    <form action="{{url_for('app.upload', picture=picture, mealtype=mealtype)}}#recommendation" method="get" enctype="multipart/form-data">
+
+        <select id="mealtype" name="mealtype"> <!--multiple-->
+            <option value="Appetizer">Appetizer</option>
+            <option value="Pasta">Pasta</option>
+            <option value="Main">Main</option>
+            <option value="Dessert">Dessert</option>
+        </select>
+
+        <input type="hidden" name="picture" value="{{filename}}">
+        <input type="submit" value="Select">
+        </form>
+        <br>
+        {% if mltype%}
+            Here are receipes for
+
+            <a target="_blank" href="http://www.giallozafferano.it/ricerca-ricette/{{mltype}}+{{maping["single_ingredients"][output[0]]}}">
+            {{mltype}} with {{maping["single_ingredients_en"][output[0]]}}</a>
+<!--
+            <a target="_blank" href="http://www.giallozafferano.it/ricette-cat/{{mltype}}/{{maping["groups"][output[0]]}}">
+            {{mltype}} with {{maping["groups_en"][maping["groups"][output[0]]]}}</a>
+-->
+        {%endif%}
+    </h2>
     </div>
 </div>
+
 
 {% endblock %}

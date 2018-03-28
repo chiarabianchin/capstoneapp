@@ -1,0 +1,24 @@
+{"single_ingredients": {"tomato": "pomodoro",
+                        "egg_box": "uova",
+                        "zucchini": "zucchine",
+                        "potato": "patata"
+                        },
+"single_ingredients_en":{"tomato": "tomatos",
+                         "egg_box": "eggs",
+                         "zucchini": "zucchini",
+                         "potato": "potatos"
+			},
+"groups":{"tomato": "Verdura",
+         "egg_box": "Uova",
+         "zucchini": "Verdura",
+         "potato": "Verdura"
+        },
+"groups_en": {"Verdura": "Vegetables",
+	      "Uova": "Eggs"
+	     },
+"mealtype": {"Appetizer": "Antipasti",
+             "Pasta": "Primi",
+             "Main": "Secondi",
+             "Dessert": "Dolci"
+            }
+}

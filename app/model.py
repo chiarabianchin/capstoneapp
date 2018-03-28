@@ -43,8 +43,9 @@ def blindpred(X_test, model_path):
     print("Raw output", output)
     label_class = [id_label[c] for c in output_class]
     print("Class", output_class, label_class)
-    print("N with probability less than cutoff", \
-    len([i for i in Y_pred_cutoff if i == -1]), "/", len(Y_pred_cutoff))
+    print("Prediction checking cutoff", Y_pred_cutoff)
+    if Y_pred_cutoff[0] == -1:
+        print("Negative class")
     #print output
     Y_pred = output.argmax(axis=-1)
     #fg = plt.figure("histo prediction")
@@ -61,7 +62,7 @@ def blindpred(X_test, model_path):
     #plt.xlabel("Predicted Classes")
     #plt.ylabel("N of events")
     #plt.show()
-    return label_class, Y_pred_cutoff
+    return label_class, Y_pred_cutoff, output
 
 
 def cutoffprediction(output, cutoff=0.8):
@@ -71,7 +72,10 @@ def cutoffprediction(output, cutoff=0.8):
     '''
     predcutoff = []
     for ex in output:
-        if any([clp for clp in ex if clp > cutoff]):
+        print("pred > cutoff", [clp for clp in ex if clp > cutoff])
+        if len([clp for clp in ex if clp > cutoff]) == 0:
+            # no prediction with probability above threshold
+        #if any([clp for clp in ex if clp > cutoff]):
             predcutoff.append(-1)
         else:
             predcutoff.append(ex.argmax(axis=-1))
