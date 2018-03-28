@@ -1,9 +1,6 @@
 #general
 import numpy as np
 
-#plotting (to be removed)
-from matplotlib import pyplot as plt
-
 #save
 from keras.models import load_model
 from keras.models import model_from_json
@@ -48,20 +45,6 @@ def blindpred(X_test, model_path):
         print("Negative class")
     #print output
     Y_pred = output.argmax(axis=-1)
-    #fg = plt.figure("histo prediction")
-    #plt.hist(Y_pred, bins=len(id_label.values()))
-    #tick_marks = np.arange(len(id_label.values()))
-    #plt.xticks(tick_marks, id_label.values(), rotation=30)
-    #plt.xlabel("Predicted Classes")
-    #plt.ylabel("N of events")
-
-    #fg = plt.figure("histo prediction with minimum probability")
-    #plt.hist(Y_pred_cutoff, bins=len(id_label.values()) + 1)
-    #tick_marks = np.arange(len(id_label.values()) + 1)
-    #plt.xticks(tick_marks, ['none'] + id_label.values(), rotation=30)
-    #plt.xlabel("Predicted Classes")
-    #plt.ylabel("N of events")
-    #plt.show()
     return label_class, Y_pred_cutoff, output
 
 
