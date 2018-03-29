@@ -35,13 +35,14 @@ def index():
         file_path = os.path.join('app', 'static', 'images')
 
         # photo camera
-        f = request.files['photoshot']
-        if f is not "":
-            filename = secure_filename(f.filename)
+        try:
+            fc = request.files['photoshot']
+            filename = secure_filename(fc.filename)
             file_name = os.path.join(file_path, filename)
-            f.save(file_name)
+            fc.save(file_name)
             return render_template("index.html", form=form, filenames=filename)
-
+        except:
+            pass
         # image from link or file
         form = PhotoForm()
         if not form.validate():
@@ -50,7 +51,7 @@ def index():
 
         f = form.photo.data
         url = form.link.data
-
+        print ("reading form")
         # image from web link
         if url is not "":
             resp = requests.get(url, stream=True)

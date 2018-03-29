@@ -3,7 +3,7 @@
 {% block content %}
 
 <div id=prediction class="container-fluid bg-grey">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <div class="thumbnail">
             <img src="static/images/{{filename}}" alt="ImageForm" style="float:center;">
         </div>
@@ -11,27 +11,23 @@
 
     </div>
     <div class="col-sm-4">
-        <div id=res class="container-fluid bg-grey vertical-align-center">
-            <h2>
 
+            <h2>
             {% for out in output %}
-              This looks like
+              This looks like {{maping["single_ingredients_en"][out]}}
               <div class="thumbnail">
                 <img src="static/images/samples/{{out}}.jpg" alt="PredFood" style="width:128px;">
-                {{maping["single_ingredients_en"][out]}}
+
               </div>
             {% endfor %}
 
-            Here are <a target="_blank" href="http://www.giallozafferano.it/ricerca-ricette/{{maping["single_ingredients"][output[0]]}}"> {{maping["single_ingredients_en"][output[0]]}}</a> receipes
-
+            <a target="_blank" href="http://www.giallozafferano.it/ricerca-ricette/{{maping["single_ingredients"][output[0]]}}"><img src="{{url_for('static', filename="GZlogo.png")}}" alt="Rec" width=100px></a>Receipes with {{maping["single_ingredients_en"][output[0]]}}
             </h2>
-        </div>
-
     </div>
     <div class="col-sm-4">
     <h2>
-    <label for="mealtype">Choose the course type</label>
-    <form action="{{url_for('app.upload', picture=picture, mealtype=mealtype)}}#recommendation" method="get" enctype="multipart/form-data">
+        <label for="mealtype">Choose the course type</label>
+        <form action="{{url_for('app.upload', picture=picture, mealtype=mealtype)}}#recommendation" method="get" enctype="multipart/form-data">
 
         <select id="mealtype" name="mealtype"> <!--multiple-->
             <option value="Appetizer">Appetizer</option>
@@ -45,10 +41,8 @@
         </form>
         <br>
         {% if mltype%}
-            Here are receipes for
-
             <a target="_blank" href="http://www.giallozafferano.it/ricerca-ricette/{{maping["mealtype"][mltype]}}+{{maping["single_ingredients"][output[0]]}}">
-            {{mltype}} with {{maping["single_ingredients_en"][output[0]]}}</a>
+            <img src="{{url_for('static', filename="GZlogo.png")}}" alt="Rec" width=100px></a>Receipes for {{mltype}} with {{maping["single_ingredients_en"][output[0]]}}
 <!--
             <a target="_blank" href="http://www.giallozafferano.it/ricette-cat/{{mltype}}/{{maping["groups"][output[0]]}}">
             {{mltype}} with {{maping["groups_en"][maping["groups"][output[0]]]}}</a>
