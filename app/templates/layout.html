@@ -6,9 +6,10 @@
 </title>
 {% with messages = get_flashed_messages() %}
    {% if messages %}
-     <ul class="flashes">
+   {{messages}}
+     <ul class="flashes" color:blue;>
         {% for message in messages %}
-         <div class="message_flash">{{ message }}</div>
+         <div class="message_flash"><h3>{{ message }}</h3></div>
         {% endfor %}
     </ul>
  {% endif %}
@@ -78,7 +79,24 @@
     color: #f4511e !important;
 }
 
+.flashes{
+    padding: 20px 20px 0 0
+    border-left: 6px solid red;
+    border-radius: 8px;
+    background-color: lightgrey;
+    position: relative;
+    left: 50px;
+    top: 300px;
+    width: 300px;
+    }
+
+.message_flash{
+    color:#0000A0
+    font-size:medium;
+
+    }
 .bg-grey {
+    background-color: #f6f6f6;
     background-color: #f6f6f6;
 }
 

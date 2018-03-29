@@ -4,8 +4,10 @@ import sys
 import numpy as np
 import io
 import json
+import requests
+import shutil
 
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, flash, request
 
 #forms
 from .forms import PhotoForm
@@ -29,14 +31,46 @@ def index():
     form = PhotoForm()
 
     if request.method == 'POST':
-        print("I'm validate on submit")
+        print("Post")
+        file_path = os.path.join('app', 'static', 'images')
+        f = request.files['photoshot']
+
+        if f is not "":
+            filename = secure_filename(f.filename)
+            file_name = os.path.join(file_path, filename)
+            f.save(file_name)
+            return render_template("index.html", form=form, filenames=filename)
         form = PhotoForm()
+        if not form.validate():
+            flash("Invalid form")
+            return render_template("index.html", form=form, filenames=None)
+
         f = form.photo.data
-        # save to file
-        filename = secure_filename(f.filename)
-        file_name = os.path.join('app', 'static', 'images', filename)
-        print("Saving file to ", file_name)
-        f.save(file_name)
+        url = form.link.data
+        print("********************* URL", url)
+        if url is not "":
+            print("Working on link")
+            resp = requests.get(url, stream=True)
+            if "png" in url:
+                ext = ".png"
+            elif "jpg" in url or "JPEG" in url:
+                ext = ".png"
+            else:
+                flash("This format is not supported (only jpg or png)")
+            filename = "user_img" + ext
+            if resp.status_code == 200:
+                with open(os.path.join(file_path, filename), 'wb') as outfile:
+                    shutil.copyfileobj(resp.raw, outfile)
+
+        if f is not None:
+            # save to file
+            filename = secure_filename(f.filename)
+            file_name = os.path.join(file_path, filename)
+            print("Saving file to ", file_name)
+            f.save(file_name)
+
+
+
         print("Done")
         print("array", np.array(form.photo))
 
@@ -63,10 +97,7 @@ def upload():
     f = os.path.join('app', 'static', 'images', fl)
     ml = None
     ml = request.args.get('mealtype')
-    #for fp in [[f]]:
-        #for test in fp:
-            #img1 = np.array(image.load_img(test, target_size=(150, 150)))
-            #print("Img ", img1)
+
     # read the model and make the prediction
     model_file = os.path.join('app', 'static', \
     'model_Y5pat_tr3110_4noneg_v1132_4noneg_steps_per_epoch_100_epochs_20_validation_steps_10.h5')
