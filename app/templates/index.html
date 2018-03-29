@@ -21,6 +21,7 @@
                 <!--<form action="{{url_for('app.upload', picture=filename)}}" method="post" enctype="multipart/form-data">
                 -->
                 </form>
+                <input type="file" accept="image/*" capture="camera">
             </div>
             <div class="col-sm-6">
                 {% if filenames %}
@@ -31,6 +32,7 @@
                     </div>
                 </form>
                 {% endif %}
+                <!-- TODO Add here moving images-->
            </div>
 
            <div class="col-sm-4 text-center">
@@ -73,7 +75,9 @@
 <div id="content" class="container-fluid text-center">
   <h2>CAPSTONE PROJECT DATA INCUBATOR 2018</h2>
   <h3>Food identification in images with a Convolutional Neural Network (CNN) <a href=" {{ url_for('app.info') }}"> Page</a></h3>
-
+    <h4> The idea </h4>
+    <p>Coming back home, hungry... I want something good to eat! Opening the fridge and... :-( </p>
+    More Details here picture of a book to link
 </div>
 </div>
 
