@@ -16,8 +16,8 @@
                 <form action="{{url_for('app.index')}}" method="post" enctype="multipart/form-data">
                     <h3><strong>Upload a picture of your ingredients:</strong></h3>
                     <h4>
-                    <p>{{form.photo}}</p>
-                    <p>{{form.link}}</p>
+                    <p>{{form.photo.label}} {{form.photo}}</p>
+                    <p>{{form.link.label}} {{form.link}}</p>
                     <p>{{form.submit}}</p>
                     </h4>
                 <!--<form action="{{url_for('app.upload', picture=filename)}}" method="post" enctype="multipart/form-data">
@@ -26,10 +26,10 @@
                 <form action="{{url_for('app.index')}}" method="post" enctype="multipart/form-data">
                     <h3><strong>Or shoot a photo with your camera on Android</strong></h3>
                     <p> (iPhone owner, you're on your own, but check <a href="http://osxdaily.com/2017/09/29/change-iphone-camera-default-image-format-jpeg-heif/"> this</a>)</p>
-                    <h4><input type="file" accept="image/*" capture="camera">
-                    <!--<input type="file" name="photoshot" accept="image/*" capture="environment">-->
-                    <input type="file" name="photoshot" accept="image/*" capture="environment">
-                    <input type="submit" value="Upload from camera">
+                    <h4>
+                    <strong>From camera</strong>
+                    <p><input type="file" name="photoshot" accept="image/*" capture="environment"></p>
+                    <p><input type="submit" value="Upload from camera"></p>
                     </h4>
                 </form>
 
@@ -87,10 +87,10 @@
 <div class="row">
 <div id="content" class="container-fluid text-center">
   <h2>CAPSTONE PROJECT DATA INCUBATOR 2018</h2>
-  <h3>Food identification in images with a Convolutional Neural Network (CNN) <a href=" {{ url_for('app.info') }}"> Page</a></h3>
+  <h3>Food identification in images with a Convolutional Neural Network (CNN)
     <h4> The idea </h4>
     <p>Coming back home, hungry... I want something good to eat! Opening the fridge and... :-( </p>
-    More Details here picture of a book to link
+    More Details... <a href=" {{ url_for('app.info') }}"> <img src="static/open-book-with-ribbon-marker.jpg" alt="More" width=150px></a></h3>
 </div>
 </div>
 

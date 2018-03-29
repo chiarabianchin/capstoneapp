@@ -33,13 +33,16 @@ def index():
     if request.method == 'POST':
         print("Post")
         file_path = os.path.join('app', 'static', 'images')
-        f = request.files['photoshot']
 
+        # photo camera
+        f = request.files['photoshot']
         if f is not "":
             filename = secure_filename(f.filename)
             file_name = os.path.join(file_path, filename)
             f.save(file_name)
             return render_template("index.html", form=form, filenames=filename)
+
+        # image from link or file
         form = PhotoForm()
         if not form.validate():
             flash("Invalid form")
@@ -47,9 +50,9 @@ def index():
 
         f = form.photo.data
         url = form.link.data
-        print("********************* URL", url)
+
+        # image from web link
         if url is not "":
-            print("Working on link")
             resp = requests.get(url, stream=True)
             if "png" in url:
                 ext = ".png"
@@ -61,18 +64,12 @@ def index():
             if resp.status_code == 200:
                 with open(os.path.join(file_path, filename), 'wb') as outfile:
                     shutil.copyfileobj(resp.raw, outfile)
-
+        # image from file
         if f is not None:
             # save to file
             filename = secure_filename(f.filename)
             file_name = os.path.join(file_path, filename)
-            print("Saving file to ", file_name)
             f.save(file_name)
-
-
-
-        print("Done")
-        print("array", np.array(form.photo))
 
         return render_template("index.html", form=form, filenames=filename)
     else:
