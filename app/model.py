@@ -19,7 +19,7 @@ mymodel = Blueprint("modelling", __name__)
 
 
 # classes for prediction
-def blindpred(X_test, model_path):
+def blindpred(X_test, model_path, cutoff = 0.8):
     '''Prediction without inputing labels
     X_test = matrix of images
     model_path = model file name (w/ extension .h5)
@@ -35,7 +35,7 @@ def blindpred(X_test, model_path):
         return
 
     output = model.predict(X_test)
-    Y_pred_cutoff = cutoffprediction(output)
+    Y_pred_cutoff = cutoffprediction(output, cutoff)
     output_class = model.predict_classes(X_test)
     print("Raw output", output)
     label_class = [id_label[c] for c in output_class]
@@ -100,7 +100,7 @@ def import_labels(model_path):
 
 
 # main
-def runprediction(inputfiles, model_path, rw=128, rh=128):
+def runprediction(inputfiles, model_path, cutoff = 0.8, rw=128, rh=128):
     X_test = []
 
     for p in inputfiles:
@@ -109,4 +109,4 @@ def runprediction(inputfiles, model_path, rw=128, rh=128):
             X_test = np.concatenate((X_test, X))
         else:
             X_test = X
-    return blindpred(X_test, model_path)
+    return blindpred(X_test, model_path, cutoff)

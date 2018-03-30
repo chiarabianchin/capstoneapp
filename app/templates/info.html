@@ -11,12 +11,16 @@
         <p>
         A Convolutional Neural Network (CNN) with 3 layers was trained to perform image recognition.
         </p>
+        <div class="thumbnail">
+            <img src="static/convolutional_neural_network.png" alt="CCN" size="float:right;width:50px;">
+        </div>
         <h2>Training</h2>
-        The model is trained with about 6k images of different types of food, namely
-        {% for key, value in food.items()%} {{key|e}},{%endfor%}
+        The model is trained with about 3k images of different types of food, namely
+        {% for key, value in food.items()%} {{dic["single_ingredients_en"][key]|e}},{%endfor%}
         (this limits what the model can identify in the picture you upload).
         The sample was cleaned up manually in order to select only images which clearly show each food
-        without other objects in the image. This improves the performance substantially.
+        without other objects in the image. This improves the performance substantially, however restricting
+        the available data set which has to be increased to achieve a better performance.
         A validation sample was used to test the accuracy and loss reached during the training.
         </p>
         <h2>Performance</h2>
@@ -28,16 +32,17 @@
         <p>The loss is around 0.7 with large fluctuations.
         Training on more epochs overfits the model.
         The confusion matrix allows to see how the false positive/negatives are
-        distributed among the different classes.
+        distributed among the different classes. The most difficult class to correctly label is the potato class,
+        which is very often confused with the egg class.
         </p>
         <div class="thumbnail">
-            <img src="static/confusion_matrixPlaceholder.jpg" alt="ConfusionMatrix" size="float:right;width:50px;">
-            <p><strong>Confusion matrix of the test set (TO BE UPDATED)</strong></p>
+            <img src="static/norm_confusion_matrixmodel_Y5pat_tr3110_4noneg_v917_4noneg_steps_per_epoch_40_epochs_20_validation_steps_10.png" alt="ConfusionMatrix" size="float:right;width:50px;">
+            <p><strong>Normalized confusion matrix on test set (N<sub>egg</sub> = 299, N<sub>potato</sub> = 209, N<sub>tomato</sub> = 218, N<sub>zucchini</sub> = 411)</strong></p>
         </div>
         <p>A cutoff on the probability is applied and no answer is given if any of the classes
         scores a probability of at least 80%. This assures also that food items
         not belonging to the training are not classified.
-        The obvious improvement to be foresee is to increase the number of classes.
+        The obvious improvement to be foreseen is to increase the number of classes and the statistics per class.
         </p>
         <h2>Next steps</h2>
         <p>
@@ -53,6 +58,12 @@
         <p>
         The use of complex images was attempted by using the selection of regions in
         the figure using OpenCV. The region proposal as is was not accurate enough.
+        A larger accuracy on the single food image is needed to proceed with more challenging
+        patterns.
+        </p>
+        <p>The recommendation of receipe is still very basic. Few straightforward improvements
+        include extracting the list of receipes with their list of ingredients and list of missing one
+        from the user image.
         </p>
         <h2>Academic works on the same topic</h2>
         There are several works aimed at recommending receipes connecting information

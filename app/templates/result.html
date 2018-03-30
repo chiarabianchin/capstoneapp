@@ -11,9 +11,8 @@
     </div>
     <div class="col-sm-8">
     <h3>
-        I couldn't recognize the image.<br>
-        Check if it is one of the <em>known types</em> of food.<br>
-        For your information, the model gave the following probabilities
+        The probability is below {{cutoff}}.<br>
+        The model gave the following probabilities
 
         {% set food = ['egg_box','potato', 'tomato', 'zucchini']%}
 
@@ -25,6 +24,7 @@
 
             </div>
         {%endfor%}
+        Check if it is one of the <em>known types</em> of food.<br>
     </h3>
     </div>
 

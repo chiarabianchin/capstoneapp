@@ -85,7 +85,11 @@ def info():
     'model_Y5pat_tr3110_4noneg_v1132_4noneg_steps_per_epoch_100_epochs_20_validation_steps_10.json'),\
     'r') as f:
         json_data = json.loads(f.read())
-    return render_template("info.html", food=json_data)
+    with open(os.path.join('app', 'static',\
+    'ingredient_map.json'),\
+    'r') as f:
+        json_dic = json.loads(f.read())
+    return render_template("info.html", food=json_data, dic=json_dic)
 
 
 @myapp.route('/upload', methods=['POST', 'GET'])
@@ -95,13 +99,19 @@ def upload():
     f = os.path.join('app', 'static', 'images', fl)
     ml = None
     ml = request.args.get('mealtype')
-
+    cutoff = 0.8
+    try:
+        user_cutoff = request.args.get('cutoff')
+        if user_cutoff:
+            cutoff = user_cutoff
+    except:
+        pass
     # read the model and make the prediction
     model_file = os.path.join('app', 'static', \
     'model_Y5pat_tr3110_4noneg_v1132_4noneg_steps_per_epoch_100_epochs_20_validation_steps_10.h5')
     # note: one list for the base folder name, another list for the subdirectories
     # this is due to the structure e.g. training/tomato
-    output_class, negative, prob = runprediction([[f]], model_file)
+    output_class, negative, prob = runprediction([[f]], model_file, cutoff)
     print("Negative in view", negative)
     if negative[0] == - 1:
         print("I couldn't recongnize")
