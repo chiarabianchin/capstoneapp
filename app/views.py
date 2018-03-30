@@ -99,7 +99,7 @@ def upload():
     f = os.path.join('app', 'static', 'images', fl)
     ml = None
     ml = request.args.get('mealtype')
-    cutoff = 0.8
+    cutoff = 0.75
     try:
         user_cutoff = request.args.get('cutoff')
         if user_cutoff:
