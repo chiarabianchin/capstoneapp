@@ -11,7 +11,7 @@
     </div>
     <div class="col-sm-8">
     <h3>
-        The probability is below {{cutoff}}.<br>
+        All probabilities are below {{cutoff}}.<br>
         The model gave the following probabilities
 
         {% set food = ['egg_box','potato', 'tomato', 'zucchini']%}
@@ -24,7 +24,8 @@
 
             </div>
         {%endfor%}
-        Check if it is one of the <em>known types</em> of food.<br>
+        Check if it is one of the <em>known types</em> of food and read <a href={{url_for('app.info')}}>here</a> about the expected performance.<br>
+
     </h3>
     </div>
 

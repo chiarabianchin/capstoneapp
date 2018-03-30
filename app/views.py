@@ -114,10 +114,9 @@ def upload():
     output_class, negative, prob = runprediction([[f]], model_file, cutoff)
     print("Negative in view", negative)
     if negative[0] == - 1:
-        print("I couldn't recongnize")
-        flash("I couldn't recongnize the ingredient or your ingredient is not in the known list")
+        #flash("All probabilities are below cutoff")
         return render_template("result.html", filename=fl, probs=prob,
-                               classes=output_class)
+                               classes=output_class, cutoff=cutoff)
     print(type(output_class))
     print("REturning ", fl)
 
