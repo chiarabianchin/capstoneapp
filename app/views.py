@@ -33,7 +33,8 @@ def index():
     if request.method == 'POST':
         print("Post")
         file_path = os.path.join('app', 'static', 'images')
-
+        # <input type="file" name="files[]" multiple="">
+        #request.files.getlist("files[]")
         # photo camera
         try:
             fc = request.files['photoshot']

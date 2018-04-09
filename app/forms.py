@@ -27,9 +27,3 @@ class PhotoForm(FlaskForm):
                 flash("Check the link")
                 return False
         return True
-
-class Cutoff(FlaskForm):
-
-    def __init__(self):
-        super(Cutoff, self).__init__()
-        cutoff = DecimalField("Probability Cutoff", description="If none of the prediction has a probability higher than cutoff, no prediction is made")
