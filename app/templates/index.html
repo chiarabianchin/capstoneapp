@@ -10,15 +10,17 @@
         <div class="col-sm-6">
         <h1>Cooking with these ingredients </h1>
             <form action="{{url_for('app.index')}}" method="post" enctype="multipart/form-data">
-                <h3><strong>Upload a picture of your ingredients:</strong></h3>
+                <h3><strong>Upload a picture Or shoot a photo with your camera of your ingredients:</strong></h3>
                 <h4>
                 <p>{{form.photo.label}} {{form.photo}}</p>
                 <p>{{form.link.label}} {{form.link}}</p>
                 <p>{{form.submit}}</p>
+
                 </h4>
             <!--<form action="{{url_for('app.upload', picture=filename)}}" method="post" enctype="multipart/form-data">
             -->
             </form>
+<!--
             <form action="{{url_for('app.index')}}" method="post" enctype="multipart/form-data">
                 <h3><strong>Or shoot a photo with your camera on Android</strong></h3>
                 <p> (iPhone owner, you're on your own, but check <a href="http://osxdaily.com/2017/09/29/change-iphone-camera-default-image-format-jpeg-heif/"> this</a>)</p>
@@ -28,6 +30,7 @@
                 <p><input type="submit" value="Upload from camera"></p>
                 </h4>
             </form>
+-->
 
 
 
